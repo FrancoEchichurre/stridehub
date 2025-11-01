@@ -17,7 +17,8 @@ export function MarcasCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [activeIndex, setActiveIndex] = useState(0)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  
+  const [clickedIndex, setClickedIndex] = useState<number | null>(null)
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % brands.length)
@@ -26,13 +27,18 @@ export function MarcasCarousel() {
   }, [])
 
   useEffect(() => {
-    if (hoveredIndex !== null) return // No animar si hay hover
-    
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % brands.length)
     }, 1800)
     return () => clearInterval(interval)
-  }, [hoveredIndex])
+  }, [])
+
+  const handleBrandClick = (index: number) => {
+    setClickedIndex(index)
+    setTimeout(() => {
+      setClickedIndex(null)
+    }, 2000)
+  }
   
   return (
     <div className="bg-white border-b border-gray-200 py-6 overflow-hidden">
@@ -45,9 +51,10 @@ export function MarcasCarousel() {
                 key={brand.name}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => handleBrandClick(index)}
                 className={`flex-shrink-0 transition-all duration-500 cursor-pointer ${
-                  index === (hoveredIndex !== null ? hoveredIndex : activeIndex)
-                    ? 'grayscale-0 opacity-100 scale-110' 
+                  index === (clickedIndex !== null ? clickedIndex : hoveredIndex !== null ? hoveredIndex : activeIndex)
+                    ? 'grayscale-0 opacity-100 scale-110'
                     : 'grayscale opacity-60 scale-100'
                 }`}
               >

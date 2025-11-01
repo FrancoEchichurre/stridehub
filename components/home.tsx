@@ -36,8 +36,8 @@ export function HomeContent() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Barra de filtros secundaria - solo marcas */}
-      <div className="sticky top-[73px] md:top-[73px] z-40 bg-white shadow-md">
+      {/* Barra de filtros secundaria - solo marcas (oculta en móvil) */}
+      <div className="hidden md:block sticky top-[73px] z-40 bg-white shadow-md">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center gap-2 md:gap-4 overflow-x-auto scrollbar-hide pb-2 md:pb-0">
             {/* Filtros de marca */}
@@ -84,96 +84,87 @@ export function HomeContent() {
         {!hasActiveFilters && <MarcasCarousel />}
 
         <div className="container mx-auto px-4 py-8">
-          <div className={hasActiveFilters ? "flex gap-6" : ""}>
-            {hasActiveFilters && (
-              <div className="w-80 flex-shrink-0">
-                <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-bold text-xl">Filtros Aplicados</h3>
-                    <button
-                      onClick={resetFilters}
-                      className="text-sm text-[#ee4023] hover:underline font-medium"
-                    >
-                      Limpiar todo
-                    </button>
-                  </div>
-
-                  <div className="mb-6 pb-6 border-b border-gray-200">
-                    <p className="text-sm text-gray-600 mb-2">Mostrando:</p>
-                    <p className="text-lg font-semibold text-gray-800">
+          {/* Filtros aplicados arriba */}
+          {hasActiveFilters && (
+            <div className="mb-6">
+              <div className="bg-white rounded-lg shadow-md p-4 md:p-6">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-semibold text-gray-600">Mostrando:</span>
+                    <span className="text-lg font-bold text-[#ee4023]">
                       {filteredProducts.length} {filteredProducts.length === 1 ? 'producto' : 'productos'}
-                    </p>
+                    </span>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="flex flex-wrap items-center gap-2">
                     {selectedGender && (
-                      <div>
-                        <p className="text-xs font-semibold text-gray-500 uppercase mb-2">Género</p>
-                        <div className="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-2">
-                          <span className="text-sm font-medium text-gray-800">
-                            {genders.find(g => g.value === selectedGender)?.name}
-                          </span>
-                          <button 
-                            onClick={() => setSelectedGender(null)}
-                            className="text-gray-400 hover:text-[#ee4023] transition-colors"
-                          >
-                            <X className="h-4 w-4" />
-                          </button>
-                        </div>
+                      <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2">
+                        <span className="text-xs font-semibold text-gray-500">Género:</span>
+                        <span className="text-sm font-medium text-gray-800">
+                          {genders.find(g => g.value === selectedGender)?.name}
+                        </span>
+                        <button
+                          onClick={() => setSelectedGender(null)}
+                          className="text-gray-400 hover:text-[#ee4023] transition-colors"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
                       </div>
                     )}
 
                     {selectedBrand && (
-                      <div>
-                        <p className="text-xs font-semibold text-gray-500 uppercase mb-2">Marca</p>
-                        <div className="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-2">
-                          <span className="text-sm font-medium text-gray-800">
-                            {selectedBrand}
-                          </span>
-                          <button 
-                            onClick={() => setSelectedBrand(null)}
-                            className="text-gray-400 hover:text-[#ee4023] transition-colors"
-                          >
-                            <X className="h-4 w-4" />
-                          </button>
-                        </div>
+                      <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2">
+                        <span className="text-xs font-semibold text-gray-500">Marca:</span>
+                        <span className="text-sm font-medium text-gray-800">
+                          {selectedBrand}
+                        </span>
+                        <button
+                          onClick={() => setSelectedBrand(null)}
+                          className="text-gray-400 hover:text-[#ee4023] transition-colors"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
                       </div>
                     )}
 
                     {searchQuery && (
-                      <div>
-                        <p className="text-xs font-semibold text-gray-500 uppercase mb-2">Búsqueda</p>
-                        <div className="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-2">
-                          <span className="text-sm font-medium text-gray-800">
-                            "{searchQuery}"
-                          </span>
-                          <button 
-                            onClick={() => setSearchQuery("")}
-                            className="text-gray-400 hover:text-[#ee4023] transition-colors"
-                          >
-                            <X className="h-4 w-4" />
-                          </button>
-                        </div>
+                      <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2">
+                        <span className="text-xs font-semibold text-gray-500">Búsqueda:</span>
+                        <span className="text-sm font-medium text-gray-800">
+                          "{searchQuery}"
+                        </span>
+                        <button
+                          onClick={() => setSearchQuery("")}
+                          className="text-gray-400 hover:text-[#ee4023] transition-colors"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
                       </div>
                     )}
+
+                    <button
+                      onClick={resetFilters}
+                      className="text-sm text-[#ee4023] hover:underline font-medium whitespace-nowrap"
+                    >
+                      Limpiar todo
+                    </button>
                   </div>
                 </div>
               </div>
-            )}
-
-            <div className="flex-1">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProducts.length > 0 ? (
-                  filteredProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))
-                ) : (
-                  <div className="col-span-full text-center py-12">
-                    <p className="text-gray-500 text-lg">No se encontraron productos</p>
-                  </div>
-                )}
-              </div>
             </div>
+          )}
+
+          {/* Grid de productos */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <p className="text-gray-500 text-lg">No se encontraron productos</p>
+              </div>
+            )}
           </div>
         </div>
       </main>

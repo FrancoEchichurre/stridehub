@@ -2,10 +2,11 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Search, ShoppingBag } from "lucide-react"
+import { Search, ShoppingBag, Menu, X } from "lucide-react"
 import { useFilters } from "@/contexts/filter-context"
 import { useCart } from "@/contexts/cart-context"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 const genders = [
   { name: "Hombre", value: "hombre" },
@@ -19,6 +20,7 @@ export function SimpleHeader() {
   const { getTotalItems } = useCart()
   const totalItems = getTotalItems()
   const router = useRouter()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -30,6 +32,7 @@ export function SimpleHeader() {
   const handleGenderClick = (genderValue: string) => {
     setSelectedGender(selectedGender === genderValue ? null : genderValue)
     router.push("/")
+    setIsMenuOpen(false)
   }
 
   const handleSearchChange = (value: string) => {
@@ -113,28 +116,40 @@ export function SimpleHeader() {
         </div>
 
         {/* Mobile Header */}
-        <div className="md:hidden py-3">
-          <div className="flex items-center justify-between gap-3 mb-3">
-            {/* Logo móvil */}
+        <div className="md:hidden py-4">
+          <div className="flex items-center justify-between gap-3">
+            {/* Botón hamburguesa */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="flex items-center justify-center w-10 h-10 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              {isMenuOpen ? (
+                <X className="h-6 w-6 text-gray-700" />
+              ) : (
+                <Menu className="h-6 w-6 text-gray-700" />
+              )}
+            </button>
+
+            {/* Logo móvil - centrado y más grande */}
             <a
               href="/"
               onClick={handleLogoClick}
-              className="flex items-center cursor-pointer"
+              className="flex items-center cursor-pointer absolute left-1/2 transform -translate-x-1/2"
             >
               <Image
                 src="/victor-store.jpg"
                 alt="Victor Store"
-                width={200}
-                height={80}
+                width={240}
+                height={96}
                 priority
-                className="h-10 w-auto drop-shadow-lg"
+                className="h-14 w-auto drop-shadow-lg"
               />
             </a>
 
-            {/* Carrito móvil */}
+            {/* Carrito móvil - un poco más pequeño */}
             <Link href="/carrito" className="relative">
-              <div className="flex items-center justify-center w-12 h-12 bg-[#ee4023] rounded-full shadow-lg">
-                <ShoppingBag className="h-6 w-6 text-white" strokeWidth={2} />
+              <div className="flex items-center justify-center w-10 h-10 bg-[#ee4023] rounded-full shadow-lg">
+                <ShoppingBag className="h-5 w-5 text-white" strokeWidth={2} />
                 {totalItems > 0 && (
                   <div className="absolute -top-1 -right-1 bg-yellow-400 text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white">
                     {totalItems}
@@ -144,34 +159,42 @@ export function SimpleHeader() {
             </Link>
           </div>
 
-          {/* Buscador móvil */}
-          <div className="relative mb-3">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Buscar productos..."
-              value={searchQuery}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 text-sm rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ee4023] focus:border-transparent"
-            />
-          </div>
+          {/* Menú desplegable */}
+          {isMenuOpen && (
+            <div className="mt-4 space-y-3 pb-2">
+              {/* Buscador móvil */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Buscar productos..."
+                  value={searchQuery}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 text-sm rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ee4023] focus:border-transparent"
+                />
+              </div>
 
-          {/* Filtros de género móvil */}
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-            {genders.map((gender) => (
-              <button
-                key={gender.value}
-                onClick={() => handleGenderClick(gender.value)}
-                className={`px-4 py-2 rounded-lg text-xs font-medium whitespace-nowrap flex-shrink-0 ${
-                  selectedGender === gender.value
-                    ? "bg-[#ee4023] text-white shadow-md"
-                    : "bg-gray-100 text-gray-700"
-                }`}
-              >
-                {gender.name}
-              </button>
-            ))}
-          </div>
+              {/* Filtros de género móvil */}
+              <div className="space-y-2">
+                <p className="text-xs font-semibold text-gray-600 uppercase px-1">Categorías</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {genders.map((gender) => (
+                    <button
+                      key={gender.value}
+                      onClick={() => handleGenderClick(gender.value)}
+                      className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                        selectedGender === gender.value
+                          ? "bg-[#ee4023] text-white shadow-md"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                    >
+                      {gender.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </header>

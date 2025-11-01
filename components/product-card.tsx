@@ -29,17 +29,17 @@ export function ProductCard({ product }: ProductCardProps) {
             <Image src={product.image || "/placeholder.svg"} alt={product.name} fill className="object-cover" />
           </div>
         </CardContent>
-        <CardFooter className="flex flex-col items-start gap-3 p-4">
+        <CardFooter className="flex flex-col items-start gap-2 md:gap-3 p-2 md:p-4">
           <div className="w-full">
-            <p className="text-xs text-muted-foreground uppercase tracking-wide">{product.brand}</p>
-            <h3 className="font-semibold text-lg mt-1">{product.name}</h3>
-            <p className="text-sm text-muted-foreground mt-1">{product.category}</p>
+            <p className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wide">{product.brand}</p>
+            <h3 className="font-semibold text-sm md:text-lg mt-0.5 md:mt-1 line-clamp-2">{product.name}</h3>
+            <p className="text-xs md:text-sm text-muted-foreground mt-0.5 md:mt-1 hidden md:block">{product.category}</p>
           </div>
-          <div className="flex items-center justify-between w-full">
-            <span className="text-2xl font-bold">${product.price}</span>
-            <Button onClick={handleAddToCart} size="sm">
-              <ShoppingCart className="h-4 w-4 mr-2" />
-              Agregar
+          <div className="flex items-center justify-between w-full gap-2">
+            <span className="text-lg md:text-2xl font-bold">${product.price}</span>
+            <Button onClick={handleAddToCart} size="sm" className="text-xs md:text-sm px-2 md:px-4 h-8 md:h-9">
+              <ShoppingCart className="h-3 w-3 md:h-4 md:w-4 md:mr-2" />
+              <span className="hidden md:inline">Agregar</span>
             </Button>
           </div>
         </CardFooter>
