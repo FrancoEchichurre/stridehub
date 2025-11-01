@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useMemo } from "react"
 import { products } from "@/lib/products"
-import { Header } from "@/components/header"
+import { useFilters } from "@/contexts/filter-context"
 import { Footer } from "@/components/footer"
 import { ProductCard } from "@/components/product-card"
 import { HeroCarousel } from "@/components/hero-carousel"
@@ -11,9 +11,7 @@ import { X } from "lucide-react"
 
 // Asegúrate que NO tenga async aquí
 export function HomeContent() {
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
-  const [selectedGender, setSelectedGender] = useState<string | null>(null)
-  const [searchQuery, setSearchQuery] = useState("")
+  const { selectedBrand, selectedGender, searchQuery, setSelectedBrand, setSelectedGender, setSearchQuery, resetFilters } = useFilters()
 
   const brands = ["Nike", "Adidas", "Puma", "Converse", "New Balance"]
   const genders = [
@@ -27,34 +25,63 @@ export function HomeContent() {
     return products.filter((product) => {
       const matchesBrand = selectedBrand === null || product.brand === selectedBrand
       const matchesGender = selectedGender === null || product.gender === selectedGender
-      const matchesSearch = searchQuery === "" || 
+      const matchesSearch = searchQuery === "" ||
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.brand.toLowerCase().includes(searchQuery.toLowerCase())
       return matchesBrand && matchesGender && matchesSearch
     })
   }, [selectedBrand, selectedGender, searchQuery])
 
-  const handleResetFilters = () => {
-    setSelectedBrand(null)
-    setSelectedGender(null)
-    setSearchQuery("")
-  }
-
   const hasActiveFilters = selectedBrand !== null || selectedGender !== null || searchQuery !== ""
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header 
-        onResetFilters={handleResetFilters}
-        selectedBrand={selectedBrand}
-        selectedGender={selectedGender}
-        searchQuery={searchQuery}
-        onBrandChange={setSelectedBrand}
-        onGenderChange={setSelectedGender}
-        onSearchChange={setSearchQuery}
-        brands={brands}
-        genders={genders}
-      />
+      {/* Barra de filtros secundaria - solo marcas */}
+      <div className="sticky top-[73px] z-40 bg-white shadow-md">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center gap-4 flex-wrap">
+            {/* Filtros de marca */}
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-gray-600 mr-2">Marcas:</span>
+              <button
+                onClick={() => setSelectedBrand(null)}
+                className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
+                  selectedBrand === null
+                    ? "bg-[#ee4023] text-white shadow-md"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                Todas
+              </button>
+              {brands.map((brand) => (
+                <button
+                  key={brand}
+                  onClick={() => setSelectedBrand(brand)}
+                  className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
+                    selectedBrand === brand
+                      ? "bg-[#ee4023] text-white shadow-md"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  {brand}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex-1"></div>
+
+            {/* Botón limpiar filtros */}
+            {hasActiveFilters && (
+              <button
+                onClick={resetFilters}
+                className="px-4 py-1.5 text-sm text-[#ee4023] hover:underline font-medium"
+              >
+                Limpiar filtros
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
 
       <main className="flex-1">
         {!hasActiveFilters && <HeroCarousel />}
@@ -67,8 +94,8 @@ export function HomeContent() {
                 <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-bold text-xl">Filtros Aplicados</h3>
-                    <button 
-                      onClick={handleResetFilters}
+                    <button
+                      onClick={resetFilters}
                       className="text-sm text-[#ee4023] hover:underline font-medium"
                     >
                       Limpiar todo
