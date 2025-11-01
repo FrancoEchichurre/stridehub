@@ -37,46 +37,42 @@ export function HomeContent() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Barra de filtros secundaria - solo marcas */}
-      <div className="sticky top-[73px] z-40 bg-white shadow-md">
+      <div className="sticky top-[73px] md:top-[73px] z-40 bg-white shadow-md">
         <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center gap-4 flex-wrap">
+          <div className="flex items-center gap-2 md:gap-4 overflow-x-auto scrollbar-hide pb-2 md:pb-0">
             {/* Filtros de marca */}
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-600 mr-2">Marcas:</span>
+            <span className="text-xs md:text-sm font-medium text-gray-600 whitespace-nowrap flex-shrink-0">Marcas:</span>
+            <button
+              onClick={() => setSelectedBrand(null)}
+              className={`px-3 md:px-4 py-1.5 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0 transition-all duration-300 ${
+                selectedBrand === null
+                  ? "bg-[#ee4023] text-white shadow-md"
+                  : "bg-gray-100 text-gray-700"
+              }`}
+            >
+              Todas
+            </button>
+            {brands.map((brand) => (
               <button
-                onClick={() => setSelectedBrand(null)}
-                className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
-                  selectedBrand === null
+                key={brand}
+                onClick={() => setSelectedBrand(brand)}
+                className={`px-3 md:px-4 py-1.5 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0 transition-all duration-300 ${
+                  selectedBrand === brand
                     ? "bg-[#ee4023] text-white shadow-md"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    : "bg-gray-100 text-gray-700"
                 }`}
               >
-                Todas
+                {brand}
               </button>
-              {brands.map((brand) => (
-                <button
-                  key={brand}
-                  onClick={() => setSelectedBrand(brand)}
-                  className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
-                    selectedBrand === brand
-                      ? "bg-[#ee4023] text-white shadow-md"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                >
-                  {brand}
-                </button>
-              ))}
-            </div>
-
-            <div className="flex-1"></div>
+            ))}
 
             {/* Botón limpiar filtros */}
             {hasActiveFilters && (
               <button
                 onClick={resetFilters}
-                className="px-4 py-1.5 text-sm text-[#ee4023] hover:underline font-medium"
+                className="px-3 md:px-4 py-1.5 text-xs md:text-sm text-[#ee4023] hover:underline font-medium whitespace-nowrap flex-shrink-0 ml-auto"
               >
-                Limpiar filtros
+                Limpiar
               </button>
             )}
           </div>

@@ -61,8 +61,8 @@ export function HeroCarousel() {
   }
 
   return (
-    <div 
-      className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden"
+    <div
+      className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -82,22 +82,22 @@ export function HeroCarousel() {
             priority={index === 0}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/30" />
-          
+
           {/* Content */}
-          <div className="absolute inset-0 flex items-center justify-center px-4">
+          <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-6">
             <div className={`text-center text-white max-w-4xl transition-all duration-700 delay-300 ${
               index === currentIndex ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-2xl">
+              <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-4 drop-shadow-2xl">
                 {slide.title}
               </h1>
-              <p className="text-xl md:text-2xl lg:text-3xl mb-3 drop-shadow-xl font-light">
+              <p className="text-base sm:text-xl md:text-2xl lg:text-3xl mb-2 sm:mb-3 drop-shadow-xl font-light">
                 {slide.subtitle}
               </p>
-              <p className="text-base md:text-lg lg:text-xl drop-shadow-lg opacity-90">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl drop-shadow-lg opacity-90 hidden sm:block">
                 {slide.description}
               </p>
-              <button className="mt-8 px-8 py-3 bg-[#ee4023] hover:bg-[#d63820] text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+              <button className="mt-4 sm:mt-8 px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-[#ee4023] hover:bg-[#d63820] text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
                 Ver Colección
               </button>
             </div>
@@ -106,15 +106,15 @@ export function HeroCarousel() {
       ))}
 
       {/* Dots Navigation */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+      <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-10">
         {heroSlides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
             className={`transition-all duration-300 rounded-full ${
-              index === currentIndex 
-                ? 'w-12 h-3 bg-[#ee4023]' 
-                : 'w-3 h-3 bg-white/50 hover:bg-white/80'
+              index === currentIndex
+                ? 'w-8 sm:w-12 h-2 sm:h-3 bg-[#ee4023]'
+                : 'w-2 sm:w-3 h-2 sm:h-3 bg-white/50 hover:bg-white/80'
             }`}
           />
         ))}
