@@ -37,6 +37,15 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* StrideHub Brand Colors */
+  --brand-primary: #2563eb;
+  /* Electric Blue */
+  --brand-secondary: #f97316;
+  /* Vibrant Orange */
+  --brand-accent: #7c3aed;
+  /* Deep Purple */
+  --brand-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
 }
 
 .dark {
@@ -72,6 +81,12 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+
+  /* StrideHub Brand Colors (same in dark mode) */
+  --brand-primary: #2563eb;
+  --brand-secondary: #f97316;
+  --brand-accent: #7c3aed;
+  --brand-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
 }
 
 @theme inline {
@@ -119,7 +134,56 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-brand-primary {
+    background-color: var(--brand-primary);
+  }
+
+  .bg-brand-secondary {
+    background-color: var(--brand-secondary);
+  }
+
+  .bg-brand-accent {
+    background-color: var(--brand-accent);
+  }
+
+  .bg-brand-gradient {
+    background: var(--brand-gradient);
+  }
+
+  .text-brand-primary {
+    color: var(--brand-primary);
+  }
+
+  .text-brand-secondary {
+    color: var(--brand-secondary);
+  }
+
+  .text-brand-accent {
+    color: var(--brand-accent);
+  }
+
+  .border-brand-primary {
+    border-color: var(--brand-primary);
+  }
+
+  .hover-brand-primary:hover {
+    background-color: var(--brand-primary);
+    color: white;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }

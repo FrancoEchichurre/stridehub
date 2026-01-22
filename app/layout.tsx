@@ -11,8 +11,8 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Victor Store - Tu Zapatería de Confianza",
-  description: "Encuentra los mejores zapatos deportivos y casuales",
+  title: "StrideHub - Premium Athletic Footwear",
+  description: "Descubre la mejor selección de calzado deportivo y casual de marcas premium. StrideHub, tu destino para el calzado perfecto.",
   generator: "v0.app",
 }
 

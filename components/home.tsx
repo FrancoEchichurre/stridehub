@@ -36,31 +36,32 @@ export function HomeContent() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Barra de filtros secundaria - solo marcas (oculta en móvil) */}
-      <div className="hidden md:block sticky top-[73px] z-40 bg-white shadow-md">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center gap-2 md:gap-4 overflow-x-auto scrollbar-hide pb-2 md:pb-0">
-            {/* Filtros de marca */}
-            <span className="text-xs md:text-sm font-medium text-gray-600 whitespace-nowrap flex-shrink-0">Marcas:</span>
+      {/* Barra de filtros secundaria - Diseño moderno */}
+      <div className="hidden md:block sticky top-[89px] z-40 bg-gradient-to-r from-slate-50 via-blue-50 to-purple-50 border-b-2 border-blue-100 shadow-lg">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide">
+            {/* Etiqueta de marcas */}
+            <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-md flex-shrink-0">
+              <span className="text-sm font-bold text-white whitespace-nowrap">🏃 Marcas</span>
+            </div>
+
             <button
               onClick={() => setSelectedBrand(null)}
-              className={`px-3 md:px-4 py-1.5 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0 transition-all duration-300 ${
-                selectedBrand === null
-                  ? "bg-[#ee4023] text-white shadow-md"
-                  : "bg-gray-100 text-gray-700"
-              }`}
+              className={`px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap flex-shrink-0 transition-all duration-300 transform hover:scale-105 ${selectedBrand === null
+                  ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg"
+                  : "bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200"
+                }`}
             >
-              Todas
+              ✨ Todas
             </button>
             {brands.map((brand) => (
               <button
                 key={brand}
                 onClick={() => setSelectedBrand(brand)}
-                className={`px-3 md:px-4 py-1.5 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap flex-shrink-0 transition-all duration-300 ${
-                  selectedBrand === brand
-                    ? "bg-[#ee4023] text-white shadow-md"
-                    : "bg-gray-100 text-gray-700"
-                }`}
+                className={`px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap flex-shrink-0 transition-all duration-300 transform hover:scale-105 ${selectedBrand === brand
+                    ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg"
+                    : "bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200"
+                  }`}
               >
                 {brand}
               </button>
@@ -70,9 +71,9 @@ export function HomeContent() {
             {hasActiveFilters && (
               <button
                 onClick={resetFilters}
-                className="px-3 md:px-4 py-1.5 text-xs md:text-sm text-[#ee4023] hover:underline font-medium whitespace-nowrap flex-shrink-0 ml-auto"
+                className="px-5 py-2 text-sm bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full whitespace-nowrap flex-shrink-0 ml-auto transition-all duration-300 transform hover:scale-105 shadow-md"
               >
-                Limpiar
+                🔄 Limpiar Filtros
               </button>
             )}
           </div>
@@ -91,7 +92,7 @@ export function HomeContent() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <span className="text-sm font-semibold text-gray-600">Mostrando:</span>
-                    <span className="text-lg font-bold text-[#ee4023]">
+                    <span className="text-lg font-bold text-brand-primary">
                       {filteredProducts.length} {filteredProducts.length === 1 ? 'producto' : 'productos'}
                     </span>
                   </div>
@@ -105,7 +106,7 @@ export function HomeContent() {
                         </span>
                         <button
                           onClick={() => setSelectedGender(null)}
-                          className="text-gray-400 hover:text-[#ee4023] transition-colors"
+                          className="text-gray-400 hover:text-brand-primary transition-colors"
                         >
                           <X className="h-4 w-4" />
                         </button>
@@ -120,7 +121,7 @@ export function HomeContent() {
                         </span>
                         <button
                           onClick={() => setSelectedBrand(null)}
-                          className="text-gray-400 hover:text-[#ee4023] transition-colors"
+                          className="text-gray-400 hover:text-brand-primary transition-colors"
                         >
                           <X className="h-4 w-4" />
                         </button>
@@ -135,7 +136,7 @@ export function HomeContent() {
                         </span>
                         <button
                           onClick={() => setSearchQuery("")}
-                          className="text-gray-400 hover:text-[#ee4023] transition-colors"
+                          className="text-gray-400 hover:text-brand-primary transition-colors"
                         >
                           <X className="h-4 w-4" />
                         </button>
@@ -144,7 +145,7 @@ export function HomeContent() {
 
                     <button
                       onClick={resetFilters}
-                      className="text-sm text-[#ee4023] hover:underline font-medium whitespace-nowrap"
+                      className="text-sm text-brand-primary hover:underline font-medium whitespace-nowrap"
                     >
                       Limpiar todo
                     </button>

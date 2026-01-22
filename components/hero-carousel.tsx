@@ -7,30 +7,30 @@ const heroSlides = [
   {
     id: 1,
     image: "/nike-air-max-270-running-shoes.jpg",
-    title: "Últimas Novedades en Running",
-    subtitle: "Descubre la nueva colección Nike Air Max",
-    description: "Tecnología de vanguardia para tus entrenamientos"
+    title: "Bienvenido a StrideHub",
+    subtitle: "Tu destino premium para calzado deportivo",
+    description: "Descubre las últimas novedades en running y lifestyle"
   },
   {
     id: 2,
     image: "/adidas-ultraboost-running-shoes.jpg",
     title: "Performance sin Límites",
-    subtitle: "Adidas Ultraboost - La revolución continúa",
-    description: "Máxima comodidad y energía en cada paso"
+    subtitle: "Tecnología de vanguardia en cada paso",
+    description: "Máxima comodidad y energía para tus entrenamientos"
   },
   {
     id: 3,
     image: "/nike-lebron-basketball-shoes.jpg",
     title: "Domina la Cancha",
-    subtitle: "Colección Basketball 2024",
-    description: "Equipamiento profesional para tu mejor juego"
+    subtitle: "Equipamiento profesional para tu mejor juego",
+    description: "Colección Basketball 2024 - Rinde al máximo"
   },
   {
     id: 4,
     image: "/puma-rs-x-casual-sneakers.jpg",
     title: "Estilo Urbano",
-    subtitle: "Nuevas tendencias en casual",
-    description: "La combinación perfecta entre moda y confort"
+    subtitle: "La combinación perfecta de moda y confort",
+    description: "Nuevas tendencias en calzado casual"
   }
 ]
 
@@ -70,9 +70,8 @@ export function HeroCarousel() {
       {heroSlides.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-700 ${
-            index === currentIndex ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`absolute inset-0 transition-opacity duration-700 ${index === currentIndex ? 'opacity-100' : 'opacity-0'
+            }`}
         >
           <Image
             src={slide.image}
@@ -81,13 +80,12 @@ export function HeroCarousel() {
             className="object-cover"
             priority={index === 0}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/60 via-brand-accent/40 to-black/70" />
 
           {/* Content */}
           <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-6">
-            <div className={`text-center text-white max-w-4xl transition-all duration-700 delay-300 ${
-              index === currentIndex ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            }`}>
+            <div className={`text-center text-white max-w-4xl transition-all duration-700 delay-300 ${index === currentIndex ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              }`}>
               <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-4 drop-shadow-2xl">
                 {slide.title}
               </h1>
@@ -97,7 +95,7 @@ export function HeroCarousel() {
               <p className="text-sm sm:text-base md:text-lg lg:text-xl drop-shadow-lg opacity-90 hidden sm:block">
                 {slide.description}
               </p>
-              <button className="mt-4 sm:mt-8 px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-[#ee4023] hover:bg-[#d63820] text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+              <button className="mt-4 sm:mt-8 px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-brand-secondary hover:bg-orange-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
                 Ver Colección
               </button>
             </div>
@@ -111,11 +109,10 @@ export function HeroCarousel() {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`transition-all duration-300 rounded-full ${
-              index === currentIndex
-                ? 'w-8 sm:w-12 h-2 sm:h-3 bg-[#ee4023]'
+            className={`transition-all duration-300 rounded-full ${index === currentIndex
+                ? 'w-8 sm:w-12 h-2 sm:h-3 bg-brand-secondary'
                 : 'w-2 sm:w-3 h-2 sm:h-3 bg-white/50 hover:bg-white/80'
-            }`}
+              }`}
           />
         ))}
       </div>

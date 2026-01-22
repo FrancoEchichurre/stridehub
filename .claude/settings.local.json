@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nFeat: Adaptación completa a dispositivos móviles\n\nSe optimizó toda la aplicación para ofrecer una experiencia óptima en dispositivos móviles:\n\n- Header: Layout separado móvil/desktop, filtros de género scrollables horizontalmente\n- Hero Carousel: Alturas responsivas (300px a 600px), textos escalados\n- Página de producto: Galería oculta en móvil, botones touch-friendly, textos responsivos\n- Carrito: Layout flexible (columna en móvil, fila en desktop), controles optimizados\n- Targets táctiles mejorados y espaciado apropiado en todos los breakpoints\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
