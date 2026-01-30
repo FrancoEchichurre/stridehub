@@ -7,8 +7,6 @@ Diseñada para ofrecer una experiencia de compra fluida, rápida y atractiva.
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Generic badge](https://img.shields.io/badge/Status-En_Desarrollo-orange?style=for-the-badge)](https://shields.io/)
 
-[Ver Demo en Vivo](#) · [Reportar Bug](#) · [Solicitar Feature](#)
-
 ## 🎯 ¿Para qué es este proyecto?
 
 **StrideHub** es una tienda en línea moderna diseñada para la venta de indumentaria deportiva de alta calidad.
